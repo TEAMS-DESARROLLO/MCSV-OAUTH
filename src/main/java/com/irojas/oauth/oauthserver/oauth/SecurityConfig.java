@@ -81,7 +81,7 @@ public class SecurityConfig {
 			// authorization server filter chain
 			//.formLogin(Customizer.withDefaults());
 			.logout(logout -> logout
-					.logoutSuccessUrl("http://127.0.0.1:4200/auth/logout")
+					.logoutSuccessUrl("http://127.0.0.1:4200/app/logout")
 					.deleteCookies("JSESSIONID")
 			)
 			.csrf(csrf -> csrf.ignoringRequestMatchers("/**"))
@@ -112,10 +112,10 @@ public class SecurityConfig {
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.redirectUri("http://127.0.0.1:4200/auth/authorize")
+				.redirectUri("http://127.0.0.1:4200/app/authorize")
 					//.redirectUri("https://oauthdebugger.com/debug")
 				//.postLogoutRedirectUri("http://127.0.0.1:8080/logout")
-				.postLogoutRedirectUri("http://127.0.0.1:9000/logout")
+				//.postLogoutRedirectUri("http://127.0.0.1:9000/logout")
 				.scope(OidcScopes.OPENID)
 				.scope(OidcScopes.PROFILE)
 				.scope("read")
