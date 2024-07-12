@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'barlow-regular';
+    src: url("/fonts/Barlow-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'black-ops-one-regular';
+    src: url('/fonts/BlackOpsOne-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'barlow-regular', sans-serif;
+}
+
+.title-company {
+    font-family: 'black-ops-one-regular', sans-serif;
+}
