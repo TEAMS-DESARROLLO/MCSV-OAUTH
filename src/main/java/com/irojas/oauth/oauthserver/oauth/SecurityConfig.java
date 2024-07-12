@@ -12,6 +12,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -41,6 +42,15 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+	@Value("${application.client.uri}")
+	private String clientUri;
+
+	@Value("${application.client.path-logout}")
+	private String clientPathLogout;
+
+	@Value("${application.client.path-redirectUri}")
+	private String clientPathRedirectUri;
 
 	@Bean 
 	@Order(1)
@@ -81,7 +91,7 @@ public class SecurityConfig {
 			// authorization server filter chain
 			//.formLogin(Customizer.withDefaults());
 			.logout(logout -> logout
-					.logoutSuccessUrl("http://127.0.0.1:4200/app/logout")
+					.logoutSuccessUrl(clientUri + clientPathLogout)
 					.deleteCookies("JSESSIONID")
 			)
 			.csrf(csrf -> csrf.ignoringRequestMatchers("/**"))
@@ -112,7 +122,7 @@ public class SecurityConfig {
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.redirectUri("http://127.0.0.1:4200/app/authorize")
+				.redirectUri(clientUri + clientPathRedirectUri)
 					//.redirectUri("https://oauthdebugger.com/debug")
 				//.postLogoutRedirectUri("http://127.0.0.1:8080/logout")
 				//.postLogoutRedirectUri("http://127.0.0.1:9000/logout")
